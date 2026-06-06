@@ -14,5 +14,6 @@ while True:
     print("movie country: ", data["Country"])
     print("movie awards: ", data["Awards"])
     print("movie poster: ", data["Poster"])
+    print("movie ratings: ", data["Ratings"])
     if input("Do you want to search for another movie? (yes/no): ") == "no":
         break
