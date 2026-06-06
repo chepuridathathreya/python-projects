@@ -1,0 +1,6 @@
+hlo
+hi
+i M
+gg
+show notes
+exit

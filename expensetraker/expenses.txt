@@ -1,0 +1,4 @@
+2000.0 - grocories
+300.0 - food
+1000.0 - chicken
+100.0 - repair
