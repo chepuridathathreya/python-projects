@@ -18,3 +18,4 @@ while True:
     print("movie metascore: ", data["Metascore"])
     if input("Do you want to search for another movie? (yes/no): ") == "no":
         break
+print("lo for fubn ")    
