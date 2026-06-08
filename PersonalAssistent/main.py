@@ -1,7 +1,7 @@
 import sqlite3
 import os
 from datetime import date, datetime
-date = datetime.now()
+current_date = datetime.now()
 connection = sqlite3.connect("assistent.db")
 cursor = connection.cursor()
 cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
@@ -25,7 +25,7 @@ while True:
             notes_choice = int(input("ENTER YOUR CHOICE: "))
             if notes_choice == 1:
                 note = input("enter your note: ")
-                cursor.execute("INSERT INTO notes (note, created_date) VALUES (?, ?)", (note, date.strftime("%Y-%m-%d %H:%M")))
+                cursor.execute("INSERT INTO notes (note, created_date) VALUES (?, ?)", (note, current_date.strftime("%Y-%m-%d %H:%M")))
                 connection.commit()
                 print("note added successfully")
             elif notes_choice == 2:
@@ -70,7 +70,7 @@ while True:
             if expenses_choice == 1:
                 amount = float(input("enter the amount: "))
                 category = input("enter the category: ")
-                cursor.execute("INSERT INTO expenses (amount, category, created_date) VALUES (?, ?, ?)", (amount, category, date.strftime("%Y-%m-%d %H:%M")))
+                cursor.execute("INSERT INTO expenses (amount, category, created_date) VALUES (?, ?, ?)", (amount, category, current_date.strftime("%Y-%m-%d %H:%M")))
                 connection.commit()
                 print("expense added successfully")
             elif expenses_choice == 2:
@@ -117,7 +117,7 @@ while True:
                 website = input("enter the website: ")
                 username = input("enter the username: ")
                 password = input("enter the password: ")
-                cursor.execute("INSERT INTO passwords (website, username, password, created_date) VALUES (?, ?, ?, ?)", (website, username, password, date.strftime("%Y-%m-%d %H:%M")))
+                cursor.execute("INSERT INTO passwords (website, username, password, created_date) VALUES (?, ?, ?, ?)", (website, username, password, current_date.strftime("%Y-%m-%d %H:%M")))
                 connection.commit()
                 print("password added successfully")
             elif passwords_choice == 2:
