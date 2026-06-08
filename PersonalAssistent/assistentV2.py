@@ -1,9 +1,8 @@
 import sqlite3
 from datetime import date, datetime
 current_date = datetime.now()
-connection = sqlite3.connect("assisV2.db")
+connection = sqlite3.connect(r"D:\dattu\python projects\PersonalAssistent\assistentV2.db")
 cursor = connection.cursor()
-
 
 def notes():
 
@@ -17,7 +16,7 @@ def notes():
                 notes_choice = int(input("ENTER YOUR CHOICE: "))
                 if notes_choice == 1:
                     note = input("enter your note: ")
-                    cursor.execute("INSERT INTO notes (note, created_date) VALUES (?, ?)", (note, current_date.strftime("%Y-%m-%d %H:%M")))
+                    cursor.execute("INSERT INTO notes (note, date) VALUES (?, ?)", (note, current_date.strftime("%Y-%m-%d %H:%M")))
                     connection.commit()
                     print("note added successfully")
                 elif notes_choice == 2:
@@ -64,7 +63,7 @@ def expenses():
             if expenses_choice == 1:
                 amount = float(input("enter the amount: "))
                 category = input("enter the category: ")
-                cursor.execute("INSERT INTO expenses (amount, category, created_date) VALUES (?, ?, ?)", (amount, category, current_date.strftime("%Y-%m-%d %H:%M")))
+                cursor.execute("INSERT INTO expenses (amount, category, current_date) VALUES (?, ?, ?)", (amount, category, current_date.strftime("%Y-%m-%d %H:%M")))
                 connection.commit()
                 print("expense added successfully")
             elif expenses_choice == 2:
@@ -113,7 +112,7 @@ def password_manager():
                 website = input("enter the website: ")
                 username = input("enter the username: ")
                 password = input("enter the password: ")
-                cursor.execute("INSERT INTO passwords (website, username, password, created_date) VALUES (?, ?, ?, ?)", (website, username, password, current_date.strftime("%Y-%m-%d %H:%M")))
+                cursor.execute("INSERT INTO passwords (website, username, password) VALUES (?, ?, ?)", (website, username, password,))
                 connection.commit()
                 print("password added successfully")
             elif password_choice == 2:
