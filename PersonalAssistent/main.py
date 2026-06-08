@@ -58,3 +58,144 @@ while True:
             else:
                 print("exiting notes")
                 break                
+    elif main_choice == 2:
+        print("welcome to Expenses")
+        print("type 1 for add expenses")
+        print("type 2 for view expenses")
+        print("type 3 for delete expenses")
+        print("type 4 for search expenses")
+        print("type 5 for exit")
+        while True:
+            expenses_choice = int(input("ENTER YOUR CHOICE: "))
+            if expenses_choice == 1:
+                amount = float(input("enter the amount: "))
+                category = input("enter the category: ")
+                cursor.execute("INSERT INTO expenses (amount, category, created_date) VALUES (?, ?, ?)", (amount, category, date.strftime("%Y-%m-%d %H:%M")))
+                connection.commit()
+                print("expense added successfully")
+            elif expenses_choice == 2:
+                cursor.execute("SELECT * FROM expenses")
+                expenses = cursor.fetchall()
+                for expense in expenses:
+                    print(f"ID: {expense[0]}, Amount: {expense[1]}, Category: {expense[2]}, Created Date: {expense[3]}")
+            elif expenses_choice == 3:
+                expense_id = int(input("enter the id of the expense you want to delete: "))
+                cursor.execute("DELETE FROM expenses WHERE id = ?", (expense_id,))
+                connection.commit()
+                print("expense deleted successfully")    
+            elif expenses_choice == 4:
+                    search_word = input("Enter word to search: ")
+                    cursor.execute("SELECT * FROM expenses WHERE category LIKE ?",
+                        ('%' + search_word + '%',))
+
+                    results = cursor.fetchall()
+
+                    if len(results) == 0:
+                        print("No expenses found.")
+
+                    else:
+                        for expense in results:
+                            print(
+                                f"ID: {expense[0]}, "
+                                f"Amount: {expense[1]}, "
+                                f"Category: {expense[2]}, "
+                                f"Created Date: {expense[3]}"
+                            )
+            else:
+                print("exiting expenses")
+                break
+    elif main_choice == 3:
+        print("welcome to Passwords")
+        print("type 1 for add passwords")
+        print("type 2 for view passwords")
+        print("type 3 for delete passwords")
+        print("type 4 for search passwords")
+        print("type 5 for exit")
+        while True:
+            passwords_choice = int(input("ENTER YOUR CHOICE: "))
+            if passwords_choice == 1:
+                website = input("enter the website: ")
+                username = input("enter the username: ")
+                password = input("enter the password: ")
+                cursor.execute("INSERT INTO passwords (website, username, password, created_date) VALUES (?, ?, ?, ?)", (website, username, password, date.strftime("%Y-%m-%d %H:%M")))
+                connection.commit()
+                print("password added successfully")
+            elif passwords_choice == 2:
+                cursor.execute("SELECT * FROM passwords")
+                passwords = cursor.fetchall()
+                for password in passwords:
+                    print(f"ID: {password[0]}, Website: {password[1]}, Username: {password[2]}, Password: {password[3]}, Created Date: {password[4]}")
+            elif passwords_choice == 3:
+                password_id = int(input("enter the id of the password you want to delete: "))
+                cursor.execute("DELETE FROM passwords WHERE id = ?", (password_id,))
+                connection.commit()
+                print("password deleted successfully")    
+            elif passwords_choice == 4:
+                    search_word = input("Enter word to search: ")
+                    cursor.execute("SELECT * FROM passwords WHERE website LIKE ?",
+                        ('%' + search_word + '%',))
+
+                    results = cursor.fetchall()
+
+                    if len(results) == 0:
+                        print("No passwords found.")
+
+                    else:
+                        for password in results:
+                            print(
+                                f"ID: {password[0]}, "
+                                f"Website: {password[1]}, "
+                                f"Username: {password[2]}, "
+                                f"Password: {password[3]}, "
+                                f"Created Date: {password[4]}"
+                            )
+            else:
+                print("exiting passwords")
+                break
+    elif main_choice == 4:
+        search_word = input("Enter word to search: ")
+        cursor.execute("SELECT * FROM notes WHERE note LIKE ?",
+            ('%' + search_word + '%',))
+
+        notes_results = cursor.fetchall()
+
+        cursor.execute("SELECT * FROM expenses WHERE category LIKE ?",
+            ('%' + search_word + '%',))
+
+        expenses_results = cursor.fetchall()
+
+        cursor.execute("SELECT * FROM passwords WHERE website LIKE ?",
+            ('%' + search_word + '%',))
+
+        passwords_results = cursor.fetchall()
+
+        if len(notes_results) == 0 and len(expenses_results) == 0 and len(passwords_results) == 0:
+            print("No results found.")
+
+        else:
+            for note in notes_results:
+                print(
+                    f"ID: {note[0]}, "
+                    f"Note: {note[1]}, "
+                    f"Created Date: {note[2]}"
+                )
+
+            for expense in expenses_results:
+                print(
+                    f"ID: {expense[0]}, "
+                    f"Amount: {expense[1]}, "
+                    f"Category: {expense[2]}, "
+                    f"Created Date: {expense[3]}"
+                )
+
+            for password in passwords_results:
+                print(
+                    f"ID: {password[0]}, "
+                    f"Website: {password[1]}, "
+                    f"Username: {password[2]}, "
+                    f"Password: {password[3]}, "
+                    f"Created Date: {password[4]}"
+                )
+    else:
+        print("exiting personal assistant")
+        break                    
