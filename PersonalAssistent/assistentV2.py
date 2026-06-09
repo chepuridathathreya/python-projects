@@ -222,6 +222,19 @@ while True:
         cursor.execute("SELECT COUNT(*) FROM passwords")
         password_count = cursor.fetchone()[0]
         print(f"Total Passwords: {password_count}")
+        print("most used category in expenses:")
+        cursor.execute("""
+            SELECT category, COUNT(*) as count
+            FROM expenses
+            GROUP BY category
+            ORDER BY count DESC
+            LIMIT 1
+        """)
+        most_used_category = cursor.fetchone()
+        if most_used_category:
+            print(f"Most used category: {most_used_category[0]} (used {most_used_category[1]} times)")
+        else:
+            print("No categories found.")
     else:
         print("exiting Personal Assistant")
         break                  
